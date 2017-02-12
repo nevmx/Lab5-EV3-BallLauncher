@@ -2,7 +2,10 @@ import lejos.hardware.motor.EV3MediumRegulatedMotor;
 
 public class Launcher {
 	
-	private final static double SIDE_TARGET_ANGLE = 18.43;
+	private static final double SIDE_TARGET_ANGLE = 18.43;
+	private static final int MOTOR_ACCELERATION = 4000;
+	private static final int MOTOR_SPEED = 700;
+	private static final int MOTOR_ROTATION_ANGLE = 90;
 	
 	public enum Target {
 		LeftTarget,
@@ -25,6 +28,9 @@ public class Launcher {
 		this.motor = motor;
 		this.target = target;
 		this.navigation = navigation;
+		
+		this.motor.setAcceleration(MOTOR_ACCELERATION);
+		this.motor.setSpeed(MOTOR_SPEED);
 	}
 	
 	/**
@@ -32,6 +38,7 @@ public class Launcher {
 	 */
 	public void launch() {
 		turnTo(target);
+		motor.rotate(MOTOR_ROTATION_ANGLE);
 	}
 	
 	/**
@@ -41,11 +48,11 @@ public class Launcher {
 	private void turnTo(Target target) {
 		switch (target) {
 		case LeftTarget:
-			navigation.turnTo(-this.SIDE_TARGET_ANGLE, true);
+			navigation.turnTo(-SIDE_TARGET_ANGLE, true);
 			break;
 			
 		case RightTarget:
-			navigation.turnTo(this.SIDE_TARGET_ANGLE, true);
+			navigation.turnTo(SIDE_TARGET_ANGLE, true);
 			break;
 			
 		default:
