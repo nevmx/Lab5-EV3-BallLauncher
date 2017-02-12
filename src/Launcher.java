@@ -1,3 +1,4 @@
+import lejos.hardware.Button;
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 
 public class Launcher {
@@ -5,7 +6,8 @@ public class Launcher {
 	private static final double SIDE_TARGET_ANGLE = 18.43;
 	private static final int MOTOR_ACCELERATION = 4000;
 	private static final int MOTOR_SPEED = 700;
-	private static final int MOTOR_ROTATION_ANGLE = 90;
+	private static final int MOTOR_ROTATION_ANGLE = 120;
+	private static final double INITIAL_ANGLE = 90.0;
 	
 	public enum Target {
 		LeftTarget,
@@ -17,7 +19,8 @@ public class Launcher {
 	private EV3MediumRegulatedMotor motor;
 	private Target target;
 	private Navigation navigation;
-	
+	private float initialMotorPosition;
+		
 	/**
 	 * Constructor
 	 * @param motor The motor used for launching the ball.
@@ -31,14 +34,33 @@ public class Launcher {
 		
 		this.motor.setAcceleration(MOTOR_ACCELERATION);
 		this.motor.setSpeed(MOTOR_SPEED);
+		this.initialMotorPosition = this.motor.getPosition();
 	}
 	
 	/**
 	 * Launch the ball.
 	 */
-	public void launch() {
+	public void launch() {		
+		sleep(1500);
+		
+		// Turn the robot facing the target.
 		turnTo(target);
-		motor.rotate(MOTOR_ROTATION_ANGLE);
+		
+		int buttonPress;
+		
+		do {
+			sleep(2000);
+			
+			// Launch the ball.
+			motor.rotate(-MOTOR_ROTATION_ANGLE);
+			
+			sleep(1500);
+			
+			motor.rotateTo((int)this.initialMotorPosition);
+			motor.flt();
+			buttonPress = Button.waitForAnyPress();
+			
+		} while (buttonPress == Button.ID_ENTER);
 	}
 	
 	/**
@@ -48,15 +70,27 @@ public class Launcher {
 	private void turnTo(Target target) {
 		switch (target) {
 		case LeftTarget:
-			navigation.turnTo(-SIDE_TARGET_ANGLE, true);
+			navigation.turnTo(INITIAL_ANGLE - SIDE_TARGET_ANGLE, true);
 			break;
 			
 		case RightTarget:
-			navigation.turnTo(SIDE_TARGET_ANGLE, true);
+			navigation.turnTo(INITIAL_ANGLE + SIDE_TARGET_ANGLE, true);
 			break;
 			
 		default:
 			break;
+		}
+	}
+	
+	/**
+	 * Sleeps the thread.
+	 * @param timeout The time to sleep for.
+	 */
+	private void sleep(long timeout) {
+		try {
+			Thread.sleep(timeout);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }
