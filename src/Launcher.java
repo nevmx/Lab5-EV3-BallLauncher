@@ -2,6 +2,8 @@ import lejos.hardware.motor.EV3MediumRegulatedMotor;
 
 public class Launcher {
 	
+	private final static double SIDE_TARGET_ANGLE = 18.43;
+	
 	public enum Target {
 		LeftTarget,
 		CenterTarget,
@@ -29,6 +31,25 @@ public class Launcher {
 	 * Launch the ball.
 	 */
 	public void launch() {
-		
+		turnTo(target);
+	}
+	
+	/**
+	 * Turns the robot facing the desired target.
+	 * @param target The target that we are aiming for.
+	 */
+	private void turnTo(Target target) {
+		switch (target) {
+		case LeftTarget:
+			navigation.turnTo(-this.SIDE_TARGET_ANGLE, true);
+			break;
+			
+		case RightTarget:
+			navigation.turnTo(this.SIDE_TARGET_ANGLE, true);
+			break;
+			
+		default:
+			break;
+		}
 	}
 }
