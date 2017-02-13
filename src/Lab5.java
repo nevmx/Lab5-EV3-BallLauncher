@@ -16,7 +16,7 @@ public class Lab5 {
 	// Color sensor port connected to input S2
 	private static final EV3LargeRegulatedMotor leftMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("A"));
 	private static final EV3LargeRegulatedMotor rightMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("D"));
-	private static final EV3MediumRegulatedMotor launcherMotor = new EV3MediumRegulatedMotor(LocalEV3.get().getPort("B"));
+	private static final EV3LargeRegulatedMotor launcherMotor = new EV3LargeRegulatedMotor(LocalEV3.get().getPort("B"));
 	
 	public static void main(String[] args) {
 		// setup the odometer and display
