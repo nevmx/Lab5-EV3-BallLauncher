@@ -5,7 +5,8 @@ public class Launcher {
 	
 	private static final double SIDE_TARGET_ANGLE = 18.43;
 	private static final int MOTOR_ACCELERATION = 4000;
-	private static final int MOTOR_SPEED = 700;
+	private static final int MOTOR_SPEED_LAUNCH = 700;
+	private static final int MOTOR_SPEED_COMEBACK = 150;
 	private static final int MOTOR_ROTATION_ANGLE = 120;
 	private static final double INITIAL_ANGLE = 90.0;
 	
@@ -33,7 +34,7 @@ public class Launcher {
 		this.navigation = navigation;
 		
 		this.motor.setAcceleration(MOTOR_ACCELERATION);
-		this.motor.setSpeed(MOTOR_SPEED);
+		this.motor.setSpeed(MOTOR_SPEED_LAUNCH);
 		this.initialMotorPosition = this.motor.getPosition();
 	}
 	
@@ -52,12 +53,14 @@ public class Launcher {
 			sleep(2000);
 			
 			// Launch the ball.
-			motor.rotate(-MOTOR_ROTATION_ANGLE);
+			motor.rotate(MOTOR_ROTATION_ANGLE);
 			
 			sleep(1500);
 			
+			motor.setSpeed(MOTOR_SPEED_COMEBACK);
 			motor.rotateTo((int)this.initialMotorPosition);
 			motor.flt();
+			motor.setSpeed(MOTOR_SPEED_LAUNCH);
 			buttonPress = Button.waitForAnyPress();
 			
 		} while (buttonPress == Button.ID_ENTER);
