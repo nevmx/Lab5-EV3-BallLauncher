@@ -4,10 +4,10 @@ import lejos.hardware.motor.EV3LargeRegulatedMotor;
 public class Launcher {
 	
 	private static final double SIDE_TARGET_ANGLE = 20;
-	private static final int MOTOR_ACCELERATION = 2000;
-	private static final int MOTOR_SPEED_LAUNCH = 500;
+	private static final int MOTOR_ACCELERATION = 1000;
+	private static final int MOTOR_SPEED_LAUNCH = 400;
 	private static final int MOTOR_SPEED_COMEBACK = 50;
-	private static final int MOTOR_ROTATION_ANGLE = 150;
+	private static final int MOTOR_ROTATION_ANGLE = 240;
 	private static final double INITIAL_THETA = 90.0;
 	
 	public enum Target {
