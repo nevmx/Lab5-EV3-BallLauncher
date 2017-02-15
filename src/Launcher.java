@@ -5,7 +5,8 @@ public class Launcher {
 	
 	private static final double SIDE_TARGET_ANGLE = 20;
 	private static final int MOTOR_ACCELERATION = 1000;
-	private static final int MOTOR_SPEED_LAUNCH = 400;
+	private static final int MOTOR_SPEED_LAUNCH_STRAIGHT = 380;
+	private static final int MOTOR_SPEED_LAUNCH_SIDE = 360;
 	private static final int MOTOR_SPEED_COMEBACK = 50;
 	private static final int MOTOR_ROTATION_ANGLE = 240;
 	private static final double INITIAL_THETA = 90.0;
@@ -34,7 +35,7 @@ public class Launcher {
 		this.navigation = navigation;
 		
 		this.motor.setAcceleration(MOTOR_ACCELERATION);
-		this.motor.setSpeed(MOTOR_SPEED_LAUNCH);
+		this.motor.setSpeed(this.target == Target.CenterTarget ? MOTOR_SPEED_LAUNCH_STRAIGHT : MOTOR_SPEED_LAUNCH_SIDE);
 		this.initialMotorPosition = this.motor.getPosition();
 	}
 	
@@ -66,7 +67,7 @@ public class Launcher {
 			
 			// Let the arm rest on the stopper or ground
 			motor.flt();
-			motor.setSpeed(MOTOR_SPEED_LAUNCH);
+			this.motor.setSpeed(this.target == Target.CenterTarget ? MOTOR_SPEED_LAUNCH_STRAIGHT : MOTOR_SPEED_LAUNCH_SIDE);
 			
 			// Get user input to launch ball again
 			buttonPress = Button.waitForAnyPress();
