@@ -43,6 +43,12 @@ public class Lab5 {
 				&& buttonChoice != Button.ID_RIGHT
 				&& buttonChoice != Button.ID_UP);
 		
+		t.drawString("                ", 0, 0);
+		t.drawString("                ", 0, 1);
+		t.drawString(" Press ENTER to ", 0, 2);
+		t.drawString("   launch again ", 0, 3);
+		t.drawString("                ", 0, 4);
+		
 		// The target we are aiming for.
 		Launcher.Target target;
 		

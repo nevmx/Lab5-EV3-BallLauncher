@@ -41,7 +41,8 @@ public class Launcher {
 	/**
 	 * Launch the ball.
 	 */
-	public void launch() {		
+	public void launch() {
+		// Allow the operator to remove his or her hand before turning the bot
 		sleep(1500);
 		
 		// Turn the robot facing the target.
@@ -50,17 +51,24 @@ public class Launcher {
 		int buttonPress;
 		
 		do {
+			// Allow the operator to remove his or her hand before launching the ball
 			sleep(2000);
 			
 			// Launch the ball.
 			motor.rotate(MOTOR_ROTATION_ANGLE);
 			
+			// Let the system stabilize before returning the arm
 			sleep(1500);
 			
+			// Return the arm to initial position
 			motor.setSpeed(MOTOR_SPEED_COMEBACK);
 			motor.rotateTo((int)this.initialMotorPosition);
+			
+			// Let the arm rest on the stopper or ground
 			motor.flt();
 			motor.setSpeed(MOTOR_SPEED_LAUNCH);
+			
+			// Get user input to launch ball again
 			buttonPress = Button.waitForAnyPress();
 			
 		} while (buttonPress == Button.ID_ENTER);
