@@ -52,6 +52,8 @@ public class Lab5 {
 		// The target we are aiming for.
 		Launcher.Target target;
 		
+		// The target field of the Launcher class must be set according to the user's
+		// desired target.
 		switch (buttonChoice) {
 		case Button.ID_LEFT:
 			target = Launcher.Target.LeftTarget;
@@ -71,6 +73,7 @@ public class Lab5 {
 			break;
 		}
 		
+		// Create the Launcher and begin launching balls
 		Launcher launcher = new Launcher(launcherMotor, nav, target);
 		launcher.launch();
 		
